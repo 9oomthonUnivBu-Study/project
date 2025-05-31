@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center"><h2>상품 상세</h2></div>
+
+    <div>
+        <label for="title">제목</label>
+        <input type="text" id="title" class="form-control"
+               th:value="${item.title}" readonly>
+    </div>
+
+    <div>
+        <label for="description">설명</label>
+        <textarea id="description" class="form-control"
+                  readonly th:text="${item.description}"></textarea>
+    </div>
+
+    <div th:if="${item.imagePath} != null">
+        <label>이미지</label><br>
+        <img th:src="@{${item.imagePath}}" alt="상품 이미지"
+             class="img-fluid rounded border p-1"
+             style="max-width: 100%;">
+    </div>
+
+
+    <div>
+        <label for="itemId">상품 ID</label>
+        <input type="text" id="itemId" name="itemId" class="form-control"
+               th:value="${item.id}" readonly>
+    </div>
+    <div>
+        <label for="itemName">상품명</label>
+        <input type="text" id="itemName" name="itemName" class="form-control"
+               th:value="${item.itemName}" readonly>
+    </div>
+    <div>
+        <label for="price">가격</label>
+        <input type="text" id="price" name="price" class="form-control"
+               th:value="${item.price}" readonly>
+    </div>
+    <div>
+        <label for="quantity">수량</label>
+        <input type="text" id="quantity" name="quantity" class="form-control"
+               th:value="${item.quantity}" readonly>
+    </div>
+    <div>
+        <label for="status">판매 상태</label>
+        <input type="text" id="status" name="status" class="form-control"
+               th:value="${item.status}" readonly>
+    </div>
+
+    <div>
+        <label for="seller">판매자</label>
+        <input type="text" id="seller" name="seller" class="form-control"
+               th:value="${item.seller}" readonly>
+    </div>
+
+    <div class="mt-3 text-center">
+        <form th:action="@{/basic/items/{id}/change-status(id=${item.id})}" method="post">
+            <button type="submit" class="btn btn-warning">상태 변경</button>
+        </form>
+    </div>
+    <hr class="my-4">
+    <div class="row">
+        <div class="col"><button class="w-100 btn btn-primary btn-lg"
+                                 th:onclick="|location.href='@{/basic/items/{itemId}/edit(itemId=${item.id})}'|"
+                                 type="button">상품 수정</button></div>
+        <div class="col"><button class="w-100 btn btn-secondary btn-lg"
+                                 th:onclick="|location.href='@{/basic/items}'|"
+                                 type="button">목록으로</button></div>
+    </div>
+</div>
+</body>
+</html>
