@@ -51,6 +51,12 @@
                    placeholder="판매자 이름 또는 ID를 입력하세요">
         </div>
 
+        <label for="status">상태</label>
+        <select id="status" name="status" class="form-control" th:field="*{status}">
+            <option value="판매중">판매중</option>
+            <option value="예약중">예약중</option>
+            <option value="판매완료">판매완료</option>
+        </select>
 
         <hr class="my-4">
         <div class="row">
