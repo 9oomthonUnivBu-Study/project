@@ -13,6 +13,7 @@ import com.example.users.Repository.UsersRepository;
 import com.example.users.Repository.RefreshTokenRepository;
 import com.example.JWT.JwtUtil;
 import com.example.users.Dto.ApiResponse;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -74,6 +75,7 @@ public class AuthService {
         );
     }
 
+    @Transactional
     public void logout(Long userId) {
         // 사용자 id로 저장된 refresh token 삭제
         refreshTokenRepository.deleteAllByUser_Id(userId);
