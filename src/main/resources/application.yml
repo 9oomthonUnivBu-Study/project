@@ -1,16 +1,19 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: CRUD
 
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
+    mode: HTML
     cache: false
 
   datasource:
-    url: jdbc:mysql://localhost:3306/chat_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: chatuser
-    password: password123
+    url: jdbc:mysql://localhost:3306/crud_db?serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -22,11 +25,11 @@ spring:
       hibernate:
         format_sql: true
 
-devtools:
-  restart:
-    exclude: static/**,public/**,data/**
+  devtools:
+    restart:
+      exclude: static/**,public/**,data/**
 
 jwt:
   secret: your-secret-key
-  access-expiration: 3600000     # 1시간 = 1000 * 60 * 60
-  refresh-expiration: 604800000  # 7일 = 1000 * 60 * 60 * 24 * 7
+  access-expiration: 3600000
+  refresh-expiration: 604800000

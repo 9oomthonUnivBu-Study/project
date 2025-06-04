@@ -90,16 +90,28 @@ public class BasicItemController {
     // 상태 변경 (판매중 → 예약중 → 판매완료 → 판매중 순환)
     @PostMapping("/{itemId}/change-status")
     public String changeStatus(@PathVariable Long itemId) {
-        Item item = itemRepository.findById(itemId).orElse(null);
-        if (item != null) {
-            switch (item.getStatus()) {
-                case "판매중" -> item.setStatus("예약중");
-                case "예약중" -> item.setStatus("판매완료");
-                default -> item.setStatus("판매중");
-            }
-            itemRepository.save(item);
+        // 예외 발생 시 정확한 이유를 알 수 있게 처리
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 ID의 상품이 존재하지 않습니다: " + itemId));
+
+        String currentStatus = item.getStatus();
+        String nextStatus;
+
+        if (currentStatus == null || currentStatus.equals("판매완료")) {
+            nextStatus = "판매중";
+        } else if (currentStatus.equals("판매중")) {
+            nextStatus = "예약중";
+        } else if (currentStatus.equals("예약중")) {
+            nextStatus = "판매완료";
+        } else {
+            nextStatus = "판매중"; // 그 외에는 판매중으로 복귀
         }
+
+        item.setStatus(nextStatus);
+        itemRepository.save(item);
+
         return "redirect:/basic/items";
     }
+
 
 }

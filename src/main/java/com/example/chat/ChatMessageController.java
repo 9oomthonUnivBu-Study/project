@@ -25,7 +25,7 @@ public class ChatMessageController {
     }
 
     @GetMapping("/api/chat/rooms/{roomId}/messages")
-    @ResponseBody
+
     public List<ChatMessageEntity> getMessages(@PathVariable Long roomId) {
         return chatMessageService.getMessages(roomId);
     }

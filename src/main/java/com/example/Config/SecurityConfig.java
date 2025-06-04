@@ -31,7 +31,12 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/users/signup",
                                 "/api/users/signin",
-                                "/api/auth/**"
+                                "/api/auth/**",
+                                "/basic/**",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**",
+                                "/ws-chat/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
